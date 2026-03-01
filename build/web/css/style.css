@@ -1,0 +1,386 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Feb 22, 2026, 11:48:36 AM
+    Author     : Nilucshiha
+*/
+
+/* General body styling */
+body {
+    font-family: 'Times New Roman', Times, serif;
+    background: url('../images/beach-background.jpg') no-repeat center center fixed;
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+/* Container for forms and content */
+form, div {
+    background-color: rgba(255, 255, 255, 0.9); /* semi-transparent background */
+    padding: 20px;
+    margin: 20px auto;
+    width: 50%;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+
+/* Headings */
+h2 {
+    color: #2E8B57; /* sea green */
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Labels and input fields */
+label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+input[type="text"], input[type="password"], input[type="date"], select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+/* Submit buttons */
+input[type="submit"] {
+    margin-top: 15px;
+    padding: 10px 20px;
+    background-color: #2E8B57;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+input[type="submit"]:hover {
+    background-color: #246b45;
+}
+
+/* Links */
+a {
+    color: #2E8B57;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Tables for reports */
+table {
+    border-collapse: collapse;
+    width: 80%;
+    margin: 20px auto;
+    background-color: rgba(255,255,255,0.9);
+}
+
+table, th, td {
+    border: 1px solid #2E8B57;
+    padding: 10px;
+    text-align: center;
+}
+
+th {
+    background-color: #2E8B57;
+    color: white;
+}
+
+td {
+    background-color: rgba(255,255,255,0.8);
+}
+
+/* Error/Success messages */
+p {
+    text-align: center;
+    font-weight: bold;
+}
+p.error { color: red; }
+p.success { color: green; }
+
+
+/* General body and font */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /* Background image */
+    background-image: url('../images/resort-background.jpg'); /* Path to your image */
+    background-size: cover;   /* Makes image cover entire screen */
+    background-position: center; /* Center image */
+    background-repeat: no-repeat; /* Prevent tiling */
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+/* Header style */
+header {
+    background-color: rgba(0,0,0,0.6);
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Card layout for home menu */
+.container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 40px auto;
+    max-width: 1000px;
+}
+
+.card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    margin: 20px;
+    padding: 30px;
+    width: 250px;
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+.card a {
+    display: block;
+    text-decoration: none;
+    color: #4facfe;
+    font-weight: bold;
+    margin-top: 15px;
+    font-size: 18px;
+}
+
+.card a:hover {
+    color: #00f2fe;
+}
+
+/* Buttons */
+.logout-btn, .login-btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 25px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background 0.3s;
+}
+
+/* Logout button style */
+.logout-btn {
+    background-color: #ff4b2b;
+    color: white;
+}
+
+.logout-btn:hover {
+    background-color: #ff416c;
+}
+
+/* Login button style */
+.login-btn {
+    background-color: #4facfe;
+    color: white;
+}
+
+.login-btn:hover {
+    background-color: #00f2fe;
+}
+
+/* Login form style */
+form {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    width: 300px;
+    margin: 50px auto;
+}
+
+form input[type="text"], form input[type="password"] {
+    width: 100%;
+    padding: 8px 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+form input[type="submit"] {
+    width: 100%;
+    cursor: pointer;
+}
+
+.home-page .card {
+    background-color: #f8f9fa;
+}
+
+/* DASHBOARD LAYOUT */
+.dashboard {
+    display: flex;
+    font-family: "Times New Roman", serif;
+    background: #f4f6f8;
+    min-height: 100vh;
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: 230px;
+    background: #023e8a;
+    color: white;
+    padding: 20px;
+}
+
+.logo {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.role {
+    text-align: center;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.sidebar a {
+    display: block;
+    color: white;
+    padding: 10px;
+    margin-bottom: 8px;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.sidebar a:hover,
+.sidebar a.active {
+    background: #0077b6;
+}
+
+.logout {
+    background: #d62828;
+}
+
+/* MAIN CONTENT */
+.main-content {
+    flex: 1;
+    padding: 30px;
+}
+
+.main-content h1 {
+    margin-bottom: 25px;
+}
+
+/* CARDS */
+.cards {
+    display: flex;
+    gap: 20px;
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    width: 220px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.card h3 {
+    margin-bottom: 10px;
+}
+
+.card a {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 6px 12px;
+    background: #0077b6;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.card a:hover {
+    background: #023e8a;
+}
+
+/* RESERVATION TABLE */
+.reservation-details table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.reservation-details th, .reservation-details td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+}
+
+.reservation-details th {
+    background-color: #0077b6;
+    color: white;
+}
+
+/* SUCCESS / ERROR MESSAGE */
+.success {
+    color: green;
+    font-weight: bold;
+}
+
+.error {
+    color: red;
+    font-weight: bold;
+}
+
+/* SEARCH FORM */
+.search-form {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.search-form input[type=text] {
+    padding: 6px;
+    width: 250px;
+}
+
+.search-form input[type=submit] {
+    padding: 6px 12px;
+    background-color: #0077b6;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.search-form input[type=submit]:hover {
+    background-color: #023e8a;
+}
+
+/* Dashboard sidebar */
+.sidebar { width: 200px; float: left; background-color: #023e8a; color: white; height: 100vh; padding: 20px;}
+.sidebar a { color: white; display: block; padding: 10px; text-decoration: none; margin:5px 0;}
+.sidebar a.active, .sidebar a:hover { background-color: #0077b6; }
+
+/* Main content */
+.main-content { margin-left: 220px; padding: 20px; }
+
+/* Reservation table */
+.reservation-details table { width: 100%; border-collapse: collapse; margin-top: 20px;}
+.reservation-details th, .reservation-details td { border:1px solid #ccc; padding:10px; text-align:left;}
+.reservation-details th { background-color:#0077b6; color:white; }
+
+/* Messages */
+.success { color: green; font-weight:bold;}
+.error { color:red; font-weight:bold; }
+
+/* Search form */
+.search-form input[type=text] { padding:5px; width:250px; }
+.search-form input[type=submit] { padding:6px 12px; background-color:#0077b6; color:white; border:none; cursor:pointer; border-radius:4px; }
