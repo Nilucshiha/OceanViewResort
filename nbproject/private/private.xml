@@ -36,6 +36,17 @@
             <file>file:/C:/Users/Nilucshiha/Documents/NetBeansProjects/OceanViewResort/web/css/style.css</file>
             <file>file:/C:/Users/Nilucshiha/Documents/NetBeansProjects/OceanViewResort/web/register.jsp</file>
             <file>file:/C:/Users/Nilucshiha/Documents/NetBeansProjects/OceanViewResort/src/java/servlet/RegisterServlet.java</file>
+            <file>file:/C:/Users/Nilucshiha/Documents/NetBeansProjects/OceanViewResort/web/css/base.css</file>
+            <file>file:/C:/Users/Nilucshiha/Documents/NetBeansProjects/OceanViewResort/web/css/dashboard.css</file>
+            <file>file:/C:/Users/Nilucshiha/Documents/NetBeansProjects/OceanViewResort/web/css/reservation.css</file>
+            <file>file:/C:/Users/Nilucshiha/Documents/NetBeansProjects/OceanViewResort/web/css/auth.css</file>
+            <file>file:/C:/Users/Nilucshiha/Documents/NetBeansProjects/OceanViewResort/web/css/report.css</file>
+            <file>file:/C:/Users/Nilucshiha/Documents/NetBeansProjects/OceanViewResort/web/css/viewReservation.css</file>
+            <file>file:/C:/Users/Nilucshiha/Documents/NetBeansProjects/OceanViewResort/src/java/controller/DeleteReservationServlet.java</file>
+            <file>file:/C:/Users/Nilucshiha/Documents/NetBeansProjects/OceanViewResort/src/java/controller/EditReservationServlet.java</file>
+            <file>file:/C:/Users/Nilucshiha/Documents/NetBeansProjects/OceanViewResort/web/editReservation.jsp</file>
+            <file>file:/C:/Users/Nilucshiha/Documents/NetBeansProjects/OceanViewResort/web/css/edit-reservation.css</file>
+            <file>file:/C:/Users/Nilucshiha/Documents/NetBeansProjects/OceanViewResort/src/java/servlet/HomeServlet.java</file>
         </group>
     </open-files>
 </project-private>

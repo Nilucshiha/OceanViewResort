@@ -18,29 +18,31 @@
 <html>
 <head>
     <title>Dashboard - Ocean View Resort</title>
-    <link rel="stylesheet" href="css/style.css">
+  
+<link rel="stylesheet" href="css/dashboard.css">
+<link rel="stylesheet" href="css/reservation.css">
 </head>
 <body class="dashboard">
 
 <!-- SIDEBAR -->
 <div class="sidebar">
-    <h2 class="logo">Ocean View</h2>
+    <h2 class="logo">Ocean View Resort</h2>
     <p class="role">Role: <%= user.getRole() %></p>
 
-    <a href="home.jsp" class="active">? Dashboard</a>
-    <a href="addReservation.jsp">? Add Reservation</a>
-    <a href="viewReservation.jsp">? View Reservations</a>
+    <a href="home.jsp" class="active">Dashboard</a>
+    <a href="addReservation.jsp">Add Reservation</a>
+    <a href="viewReservation.jsp">View Reservations</a>
 
     <% if ("ADMIN".equals(user.getRole())) { %>
-        <a href="report.jsp">? Reports</a>
+        <a href="report.jsp">Reports</a>
     <% } %>
 
-    <a href="LogoutServlet" class="logout">? Logout</a>
+    <a href="LogoutServlet" class="logout">Logout</a>
 </div>
 
 <!-- MAIN CONTENT -->
 <div class="main-content">
-    <h1>Welcome, <%= user.getUsername() %> ?</h1>
+    <h1>Welcome <%= user.getUsername() %> </h1>
 
     <div class="cards">
         <div class="card">
@@ -62,7 +64,10 @@
             <a href="report.jsp">Open</a>
         </div>
         <% } %>
+        
     </div>
+        
+        
 </div>
 
 </body>

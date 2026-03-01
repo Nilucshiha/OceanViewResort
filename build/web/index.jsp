@@ -3,49 +3,44 @@
     Created on : Feb 22, 2026, 11:30:49 AM
     Author     : Nilucshiha
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
+<%@ page contentType="text/html;charset=UTF-8" %>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Ocean View Resort - Login</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>Login | Ocean View Resort</title>
+    <link rel="stylesheet" href="css/auth.css">
 </head>
-<body class="login-bg">
+<body>
 
-<div class="login-container">
-    <h2>Ocean View Resort</h2>
-    <p class="subtitle">Staff Login</p>
+<div class="auth-container">
+    <div class="auth-card">
+        <h2>Ocean View Resort</h2>
+        <p class="subtitle">Login to your account</p>
 
-    <form action="LoginServlet" method="post">
+        <form action="LoginServlet" method="post">
+            <div class="form-group">
+                <label>Username</label>
+                <input type="text" name="username" required>
+            </div>
 
-        <label>Username</label>
-        <input type="text" name="username" placeholder="Enter username" required>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" name="password" required>
+            </div>
 
-        <label>Password</label>
-        <input type="password" name="password" placeholder="Enter password" required>
+            <input type="submit" value="Login" class="btn-primary">
+        </form>
 
-        <input type="submit" value="Login" class="btn">
-
-    </form>
-
-    <!-- ERROR MESSAGE -->
-    <c:if test="${not empty error}">
-        <p class="error">${error}</p>
-    </c:if>
-
-    <!-- SUCCESS MESSAGE -->
-    <c:if test="${not empty success}">
-        <p class="success">${success}</p>
-    </c:if>
-
-    <div class="links">
-        <p>New staff member?
-            <a href="register.jsp">Create an account</a>
+        <p class="switch">
+            Don’t have an account?
+            <a href="register.jsp">Register here</a>
         </p>
+
+        <% if (request.getAttribute("error") != null) { %>
+            <p class="error"><%= request.getAttribute("error") %></p>
+        <% } %>
     </div>
 </div>
 
 </body>
 </html>
-

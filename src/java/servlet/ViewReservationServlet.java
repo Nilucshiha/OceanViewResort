@@ -17,40 +17,47 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @WebServlet("/ViewReservationServlet")
 public class ViewReservationServlet extends HttpServlet {
+
+    private final ReservationService reservationService = new ReservationService();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // SESSION CHECK
-        HttpSession session = request.getSession(false);
-        User user = (session != null) ? (User) session.getAttribute("user") : null;
+        // Get filter input
+        String reservationNumber = request.getParameter("reservationNumber");
+        List<Reservation> reservations = new ArrayList<>();
 
-        if (user == null) {
-            response.sendRedirect("index.jsp");
-            return;
-        }
-
-        try {
-            String reservationNumber = request.getParameter("reservationNumber");
-
-            ReservationService service = new ReservationService();
-            Reservation reservation = null;
-
-            if (reservationNumber != null && !reservationNumber.isEmpty()) {
-                reservation = service.getReservation(reservationNumber);
+        if (reservationNumber != null && !reservationNumber.trim().isEmpty()) {
+            // Filter by reservation number
+            Reservation res = reservationService.getReservation(reservationNumber.trim());
+            if (res != null) {
+                reservations.add(res);
+            } else {
+                request.setAttribute("error", "No reservation found for number: " + reservationNumber);
             }
-
-            request.setAttribute("reservation", reservation);
-            request.getRequestDispatcher("viewReservation.jsp").forward(request, response);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            request.setAttribute("error", "Error retrieving reservation!");
-            request.getRequestDispatcher("viewReservation.jsp").forward(request, response);
+        } else {
+            // Show all reservations
+            reservations = reservationService.getAllReservations();
         }
+
+        // Pass attributes to JSP
+        request.setAttribute("reservations", reservations);
+        request.setAttribute("totalReservations", reservations.size()); // ✅ Total reservations
+
+        // Forward to JSP
+        request.getRequestDispatcher("viewReservation.jsp").forward(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        // POST request behaves same as GET
+        doGet(request, response);
     }
 }

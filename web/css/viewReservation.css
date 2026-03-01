@@ -1,0 +1,159 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Mar 1, 2026, 2:05:13 PM
+    Author     : Nilucshiha
+*/
+
+/* ==============================
+   VIEWRESERVATION.CSS
+   ============================== */
+
+.reservation-wrapper {
+    max-width: 1200px;
+    margin: 30px auto;
+}
+
+/* Page Title */
+.reservation-wrapper h1 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #023e8a;
+}
+
+/* Filter Card */
+.filter-card {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+    margin-bottom: 25px;
+}
+
+.filter-form {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.filter-form input[type=text] {
+    flex: 1;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.filter-form input[type=submit],
+.filter-form a {
+    padding: 10px 18px;
+    border-radius: 6px;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+/* Buttons */
+.filter-form input[type=submit] {
+    background-color: #0077b6;
+    color: white;
+    border: none;
+}
+
+.filter-form input[type=submit]:hover {
+    background-color: #023e8a;
+}
+
+.filter-form a {
+    background-color: #adb5bd;
+    color: #000;
+    display: flex;
+    align-items: center;
+}
+
+.filter-form a:hover {
+    background-color: #868e96;
+}
+
+/* Error message */
+.error {
+    color: #d62828;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+/* Table Card */
+.table-card {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+    overflow-x: auto;
+}
+
+/* Table */
+.table-card table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table-card th,
+.table-card td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+}
+
+.table-card th {
+    background-color: #0077b6;
+    color: white;
+    font-weight: 600;
+}
+
+.table-card tr:hover {
+    background-color: #f1f3f5;
+}
+
+/* Empty state */
+.empty-msg {
+    font-style: italic;
+    color: #555;
+    margin-top: 15px;
+}
+
+/* Action buttons */
+.actions {
+    display: flex;
+    gap: 8px;
+}
+
+.btn {
+    padding: 6px 12px;
+    border-radius: 5px;
+    font-size: 13px;
+    text-decoration: none;
+    color: white;
+    font-weight: 600;
+}
+
+.btn.edit {
+    background-color: #38b000;
+}
+
+.btn.edit:hover {
+    background-color: #2d8a00;
+}
+
+.btn.delete {
+    background-color: #d62828;
+}
+
+.btn.delete:hover {
+    background-color: #a11717;
+}
+
+.summary {
+    margin-bottom: 15px;
+    font-weight: 600;
+}

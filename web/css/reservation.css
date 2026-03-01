@@ -1,0 +1,146 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Mar 1, 2026, 12:06:40 PM
+    Author     : Nilucshiha
+*/
+.auth-body {
+    font-family: 'Segoe UI', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 0;
+
+    /* Background image instead of blue gradient */
+    background: url('../images/resort-background.jpg') no-repeat center center fixed;
+    background-size: cover; /* Cover entire screen */
+    background-position: center;
+    background-repeat: no-repeat;
+
+    /* Optional dark overlay for readability */
+    position: relative;
+}
+
+.auth-body::before {
+    content: "";
+    position: absolute;
+    top:0; left:0; right:0; bottom:0;
+    background-color: rgba(0, 0, 0, 0.4); /* dark overlay, adjust opacity */
+    z-index: 0;
+}
+
+.auth-container {
+    position: relative; /* keep content above overlay */
+    z-index: 1;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.auth-card {
+    background: #ffffffdd; /* semi-transparent white */
+    width: 400px;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    text-align: center;
+}
+
+.auth-card h2 {
+    margin-bottom: 5px;
+    color: #023e8a;
+}
+
+.auth-card .auth-subtitle {
+    margin-bottom: 25px;
+    color: #555;
+}
+
+/* Form Groups & Floating Labels */
+.form-group {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 12px 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    background: transparent;
+}
+
+.form-group label {
+    position: absolute;
+    left: 10px;
+    top: 12px;
+    pointer-events: none;
+    transition: 0.2s ease all;
+    color: #888;
+}
+
+.form-group input:focus + label,
+.form-group input:not(:placeholder-shown) + label,
+.form-group select:focus + label,
+.form-group select:not([value=""]) + label {
+    top: -10px;
+    font-size: 12px;
+    color: #0077b6;
+    background: #fff;
+    padding: 0 5px;
+}
+
+/* Buttons */
+.btn-submit {
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: #0077b6;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+    width: 100%;
+    transition: 0.3s;
+}
+
+.btn-submit:hover {
+    background: #023e8a;
+}
+
+/* Messages */
+.message {
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 6px;
+    font-weight: bold;
+}
+
+.message.success {
+    background: #d4edda;
+    color: #155724;
+}
+
+.message.error {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.auth-footer {
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+.auth-footer a {
+    color: #0077b6;
+    text-decoration: none;
+}
+
+.auth-footer a:hover {
+    color: #023e8a;
+}

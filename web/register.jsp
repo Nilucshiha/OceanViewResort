@@ -5,37 +5,55 @@
 --%>
 
 <%@ page contentType="text/html;charset=UTF-8" %>
+<!DOCTYPE html>
 <html>
 <head>
-    <title>User Registration</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>Register | Ocean View Resort</title>
+    <link rel="stylesheet" href="css/auth.css">
 </head>
 <body>
 
-<h2>Register New User</h2>
+<div class="auth-container">
+    <div class="auth-card">
+        <h2>Create Account</h2>
+        <p class="subtitle">Join Ocean View Resort System</p>
 
-<form action="RegisterServlet" method="post">
-    <label>Username:</label>
-    <input type="text" name="username" required>
+        <form action="RegisterServlet" method="post">
+            <div class="form-group">
+                <label>Username</label>
+                <input type="text" name="username" required>
+            </div>
 
-    <label>Password:</label>
-    <input type="password" name="password" required>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" name="password" required>
+            </div>
 
-    <label>Role:</label>
-    <select name="role" required>
-        <option value="RECEPTIONIST">Receptionist</option>
-        <option value="ADMIN">Admin</option>
-    </select>
+            <div class="form-group">
+                <label>Role</label>
+                <select name="role" required>
+                    <option value="USER">User</option>
+                    <option value="ADMIN">Admin</option>
+                </select>
+            </div>
 
-    <input type="submit" value="Register">
-</form>
+            <input type="submit" value="Register" class="btn-primary">
+        </form>
 
-<p class="error">${error}</p>
-<p class="success">${success}</p>
+        <p class="switch">
+            Already have an account?
+            <a href="index.jsp">Login here</a>
+        </p>
 
-<p>
-    Already have an account? <a href="index.jsp">Login here</a>
-</p>
+        <% if (request.getAttribute("error") != null) { %>
+            <p class="error"><%= request.getAttribute("error") %></p>
+        <% } %>
+
+        <% if (request.getAttribute("success") != null) { %>
+            <p class="success"><%= request.getAttribute("success") %></p>
+        <% } %>
+    </div>
+</div>
 
 </body>
 </html>
