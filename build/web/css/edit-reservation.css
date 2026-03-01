@@ -1,0 +1,140 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Mar 1, 2026, 2:26:34 PM
+    Author     : Nilucshiha
+*/
+
+/* ===============================
+   BACKGROUND
+   =============================== */
+
+body.dashboard {
+    background:
+        linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
+        url("../images/resort-bg.jpg") center / cover no-repeat fixed;
+}
+
+/* ===============================
+   MAIN CONTENT CENTER
+   =============================== */
+
+.main-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 50px 20px;
+    background: transparent;
+}
+
+/* ===============================
+   HEADER
+   =============================== */
+
+.edit-header {
+    width: 100%;
+    max-width: 900px;
+    margin-bottom: 25px;
+    color: white;
+}
+
+.edit-header h1 {
+    margin: 0;
+    font-size: 32px;
+}
+
+.edit-header span {
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+/* ===============================
+   CARD
+   =============================== */
+
+.edit-card {
+    width: 100%;
+    max-width: 900px;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(10px);
+    padding: 40px;
+    border-radius: 18px;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.35);
+}
+
+/* ===============================
+   FORM GRID
+   =============================== */
+
+.edit-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+}
+
+.field.full {
+    grid-column: span 2;
+}
+
+.field label {
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.field input,
+.field select {
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    background: #f9f9f9;
+    font-size: 14px;
+}
+
+.field input:focus,
+.field select:focus {
+    outline: none;
+    border-color: #2a9df4;
+    box-shadow: 0 0 0 3px rgba(42,157,244,0.25);
+    background: #fff;
+}
+
+/* ===============================
+   ACTION BUTTONS
+   =============================== */
+
+.edit-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 16px;
+    margin-top: 35px;
+}
+
+.btn-save {
+    background: linear-gradient(135deg, #2a9df4, #0077b6);
+    color: white;
+    padding: 12px 28px;
+    border-radius: 10px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-save:hover {
+    opacity: 0.9;
+}
+
+.btn-cancel {
+    background: #e5e5e5;
+    color: #333;
+    padding: 12px 24px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 600;
+}
