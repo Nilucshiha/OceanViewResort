@@ -15,22 +15,15 @@ import model.Payment;
 
 public class BillingService {
     private BillDAO billDAO = new BillDAO();
-    private PaymentDAO paymentDAO = new PaymentDAO();
 
-    // Get bill by reservation ID
-    public Bill getBill(int reservationId) {
-        return billDAO.getBill(reservationId);
+    // Create a bill
+    public boolean createBill(Bill bill) {
+        int id = billDAO.addBill(bill);
+        return id > 0;
     }
 
-    // Make payment
-    public String makePayment(int billId, String paymentMethod, double amount) {
-        try {
-            Payment payment = new Payment(billId, paymentMethod, amount);
-            int id = paymentDAO.addPayment(payment);
-            if(id > 0) return "Payment successful!";
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
-        return "Payment failed!";
+    // Get bill by reservationId
+    public Bill getBill(int reservationId) {
+        return billDAO.getBill(reservationId);
     }
 }

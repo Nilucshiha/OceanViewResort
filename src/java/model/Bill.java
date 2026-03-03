@@ -14,8 +14,10 @@ public class Bill {
     private int totalNights;
     private double totalAmount;
 
-    public Bill(int reservationId, int totalNights, double totalAmount){
-        this.reservationId = reservationId; this.totalNights = totalNights; this.totalAmount = totalAmount;
+    public Bill(int reservationId, int totalNights, double totalAmount) {
+        this.reservationId = reservationId;
+        this.totalNights = totalNights;
+        this.totalAmount = totalAmount;
     }
 
     public int getBillId() { return billId; }

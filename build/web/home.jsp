@@ -42,7 +42,7 @@
 
 <!-- MAIN CONTENT -->
 <div class="main-content">
-    <h1>Welcome <%= user.getUsername() %> </h1>
+    <h1 class="page-title">Welcome <%= user.getUsername() %> </h1>
 
     <div class="cards">
         <div class="card">

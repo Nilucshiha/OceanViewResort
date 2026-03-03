@@ -21,7 +21,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 /* Sidebar container */
 .sidebar {
     width: 250px;
-    background-color: #043068; /* deep blue */
+    background-color: #07254b; /* deep blue */
     color: #fff;
     display: flex;
     flex-direction: column;
@@ -125,33 +125,38 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     }
 }
 
-/* MAIN CONTENT */
 .main-content {
-    flex: 1;
+    margin-left: 274px;
     padding: 30px;
-   /* background-color: rgba(255,255,255,0.95);*/
-    margin-left: 270px; /* equal to sidebar width */
-    overflow-x: auto;
     min-height: 100vh;
-    
-    background: url('../images/resort-background.jpg') no-repeat center center fixed;
-    background-size: cover; /* Cover entire screen */
-    background-position: center;
-    background-repeat: no-repeat;
+    position: relative;
+    z-index: 1;
+    width: 100%;
 }
+
+/* BACKGROUND IMAGE */
+.main-content::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url('../images/resort-background.jpg') center / cover no-repeat;
+    z-index: -2;
+    pointer-events: none;
+}
+
 
 /* DASHBOARD CARDS */
 .cards {
     display: flex;
     gap: 20px;
     flex-wrap: wrap;
-    justify-content: flex-start;
+    justify-content: center;
 }
 
 .card {
     background-color: white;
-    padding: 20px;
-    width: 220px;
+    padding: 33px;
+    width: 500px;
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.2);
     transition: transform 0.2s, box-shadow 0.2s;
@@ -190,4 +195,12 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     font-size: 42px;
     font-weight: bold;
     margin: 10px 0;
+}
+
+.page-title {
+    text-align: center;
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 30px;
+    color: #023e8a;
 }

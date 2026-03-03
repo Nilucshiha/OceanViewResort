@@ -166,4 +166,31 @@ public int getReservationCount() {
     return 0;
 }
 
+public Reservation getReservationById(int reservationId) {
+    String sql = """
+        SELECT r.reservation_id, r.reservation_number, r.check_in, r.check_out, r.status,
+               g.guest_name, g.address, g.contact_number,
+               rm.room_type
+        FROM reservations r
+        JOIN guests g ON r.guest_id = g.guest_id
+        JOIN rooms rm ON r.room_id = rm.room_id
+        WHERE r.reservation_id = ?
+    """;
+
+    try (Connection con = DatabaseConnection.getInstance().getConnection();
+         PreparedStatement ps = con.prepareStatement(sql)) {
+
+        ps.setInt(1, reservationId);
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
+            return mapResultSetToReservation(rs);
+        }
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+
+    return null;
+}
+
 }

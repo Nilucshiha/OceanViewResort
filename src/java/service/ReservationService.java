@@ -107,4 +107,13 @@ public class ReservationService {
     public int getTotalReservations() {
     return reservationDAO.getReservationCount();
 }
+    public List<Reservation> getReservationsForBilling() {
+    // could reuse getAllReservations
+    return getAllReservations();
+}
+    
+    public Reservation getReservationById(int reservationId) {
+    return reservationDAO.getReservationById(reservationId);
+}
+    
 }

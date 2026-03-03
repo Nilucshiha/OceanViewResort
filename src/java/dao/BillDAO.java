@@ -14,38 +14,48 @@ import java.sql.*;
 
 public class BillDAO {
 
+    // Save bill
     public int addBill(Bill bill) {
-        int id = -1;
-        try {
-            Connection conn = DatabaseConnection.getInstance().getConnection();
-            String sql = "INSERT INTO bills (reservation_id, total_nights, total_amount) VALUES (?,?,?)";
-            PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+        String sql = "INSERT INTO bills (reservation_id, total_nights, total_amount) VALUES (?, ?, ?)";
+        try (Connection con = DatabaseConnection.getInstance().getConnection();
+             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+
             ps.setInt(1, bill.getReservationId());
             ps.setInt(2, bill.getTotalNights());
             ps.setDouble(3, bill.getTotalAmount());
-            ps.executeUpdate();
-            ResultSet rs = ps.getGeneratedKeys();
-            if(rs.next()) {
-                id = rs.getInt(1);
-                bill.setBillId(id);
+
+            int rows = ps.executeUpdate();
+            if (rows == 0) return 0;
+
+            try (ResultSet rs = ps.getGeneratedKeys()) {
+                if (rs.next()) return rs.getInt(1);
             }
-        } catch(SQLException e) { e.printStackTrace(); }
-        return id;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 
+    // Get bill by reservationId
     public Bill getBill(int reservationId) {
-        try {
-            Connection conn = DatabaseConnection.getInstance().getConnection();
-            String sql = "SELECT * FROM bills WHERE reservation_id=?";
-            PreparedStatement ps = conn.prepareStatement(sql);
+        String sql = "SELECT * FROM bills WHERE reservation_id=?";
+        try (Connection con = DatabaseConnection.getInstance().getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
             ps.setInt(1, reservationId);
             ResultSet rs = ps.executeQuery();
-            if(rs.next()) {
-                Bill b = new Bill(rs.getInt("reservation_id"), rs.getInt("total_nights"), rs.getDouble("total_amount"));
-                b.setBillId(rs.getInt("bill_id"));
-                return b;
+            if (rs.next()) {
+                return new Bill(
+                        rs.getInt("reservation_id"),
+                        rs.getInt("total_nights"),
+                        rs.getDouble("total_amount")
+                );
             }
-        } catch(SQLException e) { e.printStackTrace(); }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return null;
     }
 }
