@@ -42,37 +42,29 @@
 
 <!-- MAIN -->
 <div class="main-content">
+    <h1>Edit Reservation</h1>
 
-    <div class="edit-header">
-        <h1>Edit Reservation</h1>
-        <span>Reservation No: ${reservation.reservationNumber}</span>
-    </div>
+    <c:if test="${not empty error}">
+        <p class="error">${error}</p>
+    </c:if>
 
-    <form action="UpdateReservationServlet" method="post" class="edit-card">
-
-        <input type="hidden" name="reservationNumber"
-               value="${reservation.reservationNumber}">
+    <form action="EditReservationServlet" method="post" class="edit-card">
+        <input type="hidden" name="reservationNumber" value="${reservation.reservationNumber}">
+        <input type="hidden" name="guestId" value="${reservation.guestId}">
 
         <div class="edit-grid">
-
             <div class="field">
                 <label>Guest Name</label>
-                <input type="text" name="guestName"
-                       value="${reservation.guestName}" required>
+                <input type="text" name="guestName" value="${reservation.guestName}" required>
             </div>
-
             <div class="field">
                 <label>Contact Number</label>
-                <input type="text" name="contactNumber"
-                       value="${reservation.contactNumber}" required>
+                <input type="text" name="contactNumber" value="${reservation.contactNumber}" required>
             </div>
-
             <div class="field full">
                 <label>Address</label>
-                <input type="text" name="address"
-                       value="${reservation.address}" required>
+                <input type="text" name="address" value="${reservation.address}" required>
             </div>
-
             <div class="field">
                 <label>Room Type</label>
                 <select name="roomType">
@@ -81,7 +73,6 @@
                     <option ${reservation.roomType=='SUITE'?'selected':''}>SUITE</option>
                 </select>
             </div>
-
             <div class="field">
                 <label>Status</label>
                 <select name="status">
@@ -89,28 +80,21 @@
                     <option ${reservation.status=='CANCELLED'?'selected':''}>CANCELLED</option>
                 </select>
             </div>
-
             <div class="field">
                 <label>Check-In</label>
-                <input type="date" name="checkIn"
-                       value="${reservation.checkIn}" required>
+                <input type="date" name="checkIn" value="${reservation.checkIn}" required>
             </div>
-
             <div class="field">
                 <label>Check-Out</label>
-                <input type="date" name="checkOut"
-                       value="${reservation.checkOut}" required>
+                <input type="date" name="checkOut" value="${reservation.checkOut}" required>
             </div>
-
         </div>
 
         <div class="edit-actions">
             <a href="viewReservation.jsp" class="btn-cancel">Cancel</a>
             <button type="submit" class="btn-save">Save Changes</button>
         </div>
-
     </form>
-
 </div>
 
 </body>

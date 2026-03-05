@@ -10,10 +10,8 @@ package model;
  */
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
-/**
- * Reservation Model Class
- */
 public class Reservation implements Serializable {
 
     private int reservationId;
@@ -22,7 +20,6 @@ public class Reservation implements Serializable {
     private int guestId;
     private int roomId;
 
-    // Extra fields for VIEW (JOIN queries)
     private String guestName;
     private String roomType;
     private String contactNumber;
@@ -31,15 +28,18 @@ public class Reservation implements Serializable {
     private LocalDate checkIn;
     private LocalDate checkOut;
 
+    private double pricePerNight;   
     private String status;
 
-    // ✅ REQUIRED: No-arg constructor (JSP / JSTL)
     public Reservation() {
     }
+    public Reservation(String reservationNumber,
+                       int guestId,
+                       int roomId,
+                       LocalDate checkIn,
+                       LocalDate checkOut,
+                       String status) {
 
-    // ✅ Constructor for INSERT
-    public Reservation(String reservationNumber, int guestId, int roomId,
-                       LocalDate checkIn, LocalDate checkOut, String status) {
         this.reservationNumber = reservationNumber;
         this.guestId = guestId;
         this.roomId = roomId;
@@ -47,24 +47,17 @@ public class Reservation implements Serializable {
         this.checkOut = checkOut;
         this.status = status;
     }
-
-    // ✅ Constructor for VIEW (JOIN result)
-    public Reservation(String reservationNumber, String guestName, String address,
-                       String contactNumber, String roomType,
-                       LocalDate checkIn, LocalDate checkOut, String status) {
-        this.reservationNumber = reservationNumber;
-        this.guestName = guestName;
-        this.address = address;
-        this.contactNumber = contactNumber;
-        this.roomType = roomType;
-        this.checkIn = checkIn;
-        this.checkOut = checkOut;
-        this.status = status;
+   
+    public long getNumberOfNights() {
+        if (checkIn != null && checkOut != null) {
+            return ChronoUnit.DAYS.between(checkIn, checkOut);
+        }
+        return 0;
     }
 
-    // =====================
-    // GETTERS & SETTERS
-    // =====================
+    public double getTotalAmount() {
+        return getNumberOfNights() * pricePerNight;
+    }
 
     public int getReservationId() {
         return reservationId;
@@ -146,6 +139,14 @@ public class Reservation implements Serializable {
         this.checkOut = checkOut;
     }
 
+    public double getPricePerNight() {
+        return pricePerNight;
+    }
+
+    public void setPricePerNight(double pricePerNight) {
+        this.pricePerNight = pricePerNight;
+    }
+
     public String getStatus() {
         return status;
     }
@@ -153,10 +154,6 @@ public class Reservation implements Serializable {
     public void setStatus(String status) {
         this.status = status;
     }
-
-    // =====================
-    // DEBUGGING SUPPORT
-    // =====================
 
     @Override
     public String toString() {
@@ -166,7 +163,19 @@ public class Reservation implements Serializable {
                 ", roomType='" + roomType + '\'' +
                 ", checkIn=" + checkIn +
                 ", checkOut=" + checkOut +
-                ", status='" + status + '\'' +
+                ", totalAmount=" + getTotalAmount() +
                 '}';
     }
+    
+    public long getNights() {
+    if (checkIn != null && checkOut != null) {
+        return java.time.temporal.ChronoUnit.DAYS.between(checkIn, checkOut);
+    }
+    return 0;
+}
+
+public double getRoomRate() {
+    // Return your actual room rate logic here
+    return 150.0;
+}
 }

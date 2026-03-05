@@ -20,5 +20,13 @@
         <url-pattern>/LoginServlet</url-pattern>
     </servlet-mapping>
     
-    
+    <servlet>
+    <servlet-name>DeleteReservationServlet</servlet-name>
+    <servlet-class>controller.DeleteReservationServlet</servlet-class>
+</servlet>
+
+<servlet-mapping>
+    <servlet-name>DeleteReservationServlet</servlet-name>
+    <url-pattern>/DeleteReservationServlet</url-pattern>
+</servlet-mapping>
 </web-app>

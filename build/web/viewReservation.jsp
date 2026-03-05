@@ -30,13 +30,15 @@
     <h2 class="logo">Ocean View Resort</h2>
     <p class="role">Role: <%= user.getRole() %></p>
 
-    <a href="home.jsp">Dashboard</a>
+    <a href="home.jsp" class="active">Dashboard</a>
     <a href="addReservation.jsp">Add Reservation</a>
-    <a href="viewReservation.jsp" class="active">View Reservations</a>
+    <a href="viewReservation.jsp">View Reservations</a>
 
     <% if ("ADMIN".equals(user.getRole())) { %>
         <a href="report.jsp">Reports</a>
     <% } %>
+    <a href="CalculateBillServlet">Calculate & Print Bill</a>
+    <a href="help.jsp">Help</a>
 
     <a href="LogoutServlet" class="logout">Logout</a>
 </div>
@@ -53,7 +55,7 @@
                 <input type="text" name="reservationNumber"
                        placeholder="Enter Reservation Number">
 
-                <input type="submit" value="Search">
+                <input type="submit" name="search" value="Search">
                 <a href="ViewReservationServlet">Show All</a>
             </form>
         </div>
@@ -103,6 +105,7 @@
                        onclick="return confirm('Are you sure you want to delete this reservation?');">
                         Delete
                     </a>
+                       
                 </td>
             </tr>
         </c:forEach>

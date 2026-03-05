@@ -33,18 +33,29 @@ public class ViewReservationServlet extends HttpServlet {
         String reservationNumber = request.getParameter("reservationNumber");
         List<Reservation> reservations = new ArrayList<>();
 
-        if (reservationNumber != null && !reservationNumber.trim().isEmpty()) {
-            // Filter by reservation number
-            Reservation res = reservationService.getReservation(reservationNumber.trim());
-            if (res != null) {
-                reservations.add(res);
-            } else {
-                request.setAttribute("error", "No reservation found for number: " + reservationNumber);
-            }
+       String searchAction = request.getParameter("search");
+
+if (searchAction != null) {
+
+
+    if (reservationNumber != null && !reservationNumber.trim().isEmpty()) {
+
+        Reservation res = reservationService.getReservation(reservationNumber.trim());
+
+        if (res != null) {
+            reservations.add(res);
         } else {
-            // Show all reservations
-            reservations = reservationService.getAllReservations();
+            request.setAttribute("error", "No reservation found for number: " + reservationNumber);
         }
+
+    } else {
+        request.setAttribute("error", "Please enter a reservation number.");
+    }
+
+} else {
+    // First time page load → show all
+    reservations = reservationService.getAllReservations();
+}
 
         // Pass attributes to JSP
         request.setAttribute("reservations", reservations);

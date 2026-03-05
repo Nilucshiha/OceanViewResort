@@ -36,6 +36,8 @@
     <% if ("ADMIN".equals(user.getRole())) { %>
         <a href="report.jsp">Reports</a>
     <% } %>
+    <a href="CalculateBillServlet">Calculate & Print Bill</a>
+    <a href="help.jsp">Help</a>
 
     <a href="LogoutServlet" class="logout">Logout</a>
 </div>

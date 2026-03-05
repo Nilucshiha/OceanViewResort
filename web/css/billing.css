@@ -6,70 +6,96 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     Created on : Mar 1, 2026, 9:26:28 PM
     Author     : Nilucshiha
 */
-
-/* Centralized bill form card */
-.bill-card {
-    max-width: 600px;
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    
+    background: url('../images/resort-background.jpg') no-repeat center center fixed;
+    background-size: cover; /* Cover entire screen */
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.bill-container {
+    width: 80%;
+    max-width: 800px;
     margin: 50px auto;
-    background: rgba(255,255,255,0.95);
-    padding: 35px;
-    border-radius: 15px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+    padding: 30px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+    margin-left: 600px;
+}
+
+header {
     text-align: center;
+    margin-bottom: 30px;
 }
 
-/* Heading */
-.bill-card h2 {
-    text-align: center;
-    margin-bottom: 25px;
-    color: #023e8a;
-}
-
-/* Labels */
-.bill-card label {
-    display: block;
-    font-weight: 600;
-    margin-top: 15px;
-}
-
-/* Inputs */
-.bill-card input {
-    width: 100%;
-    padding: 10px;
-    margin-top: 6px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-}
-
-/* Total Amount */
-.bill-card .total {
-    font-size: 18px;
-    font-weight: bold;
+header h1 {
+    margin: 0;
+    font-size: 32px;
     color: #0077b6;
 }
 
-/* Submit Button */
-.btn-primary {
-    margin-top: 25px;
-    width: 100%;
-    padding: 12px;
-    background-color: #0077b6;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background 0.3s;
+header p {
+    margin: 5px 0 0;
+    font-size: 18px;
+    color: #555;
 }
 
-.btn-primary:hover {
+section h2 {
+    background-color: #0077b6;
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 6px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+th, td {
+    text-align: left;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.total-row th, .total-row td {
+    font-weight: bold;
+    font-size: 18px;
+    background-color: #e6f0ff;
+}
+
+.actions {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.actions button {
+    padding: 10px 20px;
+    margin: 5px;
+    font-size: 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    color: #fff;
+    background-color: #0077b6;
+    transition: 0.3s;
+}
+
+.actions button:hover {
     background-color: #023e8a;
 }
 
-/* Optional: add subtle background */
-.main-content {
-    background: url('../images/resort-background.jpg') no-repeat center center fixed;
-    background-size: cover;
-    min-height: 100vh;
-    padding: 40px;
+@media print {
+    body {
+        background-color: #fff;
+    }
+    .actions {
+        display: none;
+    }
 }

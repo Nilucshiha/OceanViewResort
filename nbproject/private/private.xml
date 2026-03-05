@@ -49,6 +49,9 @@
             <file>file:/C:/Users/Nilucshiha/Documents/NetBeansProjects/OceanViewResort/src/java/servlet/HomeServlet.java</file>
             <file>file:/C:/Users/Nilucshiha/Documents/NetBeansProjects/OceanViewResort/web/generateBill.jsp</file>
             <file>file:/C:/Users/Nilucshiha/Documents/NetBeansProjects/OceanViewResort/web/css/billing.css</file>
+            <file>file:/C:/Users/Nilucshiha/Documents/NetBeansProjects/OceanViewResort/src/java/servlet/GenerateBillServlet.java</file>
+            <file>file:/C:/Users/Nilucshiha/Documents/NetBeansProjects/OceanViewResort/src/java/servlet/SaveBillServlet.java</file>
+            <file>file:/C:/Users/Nilucshiha/Documents/NetBeansProjects/OceanViewResort/web/help.jsp</file>
         </group>
     </open-files>
 </project-private>

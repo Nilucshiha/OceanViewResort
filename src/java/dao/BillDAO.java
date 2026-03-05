@@ -14,48 +14,83 @@ import java.sql.*;
 
 public class BillDAO {
 
-    // Save bill
-    public int addBill(Bill bill) {
-        String sql = "INSERT INTO bills (reservation_id, total_nights, total_amount) VALUES (?, ?, ?)";
-        try (Connection con = DatabaseConnection.getInstance().getConnection();
-             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+    public boolean isBillExists(int reservationId) {
 
-            ps.setInt(1, bill.getReservationId());
-            ps.setInt(2, bill.getTotalNights());
-            ps.setDouble(3, bill.getTotalAmount());
+        String sql = "SELECT billId FROM bill WHERE reservationId = ?";
+        boolean exists = false;
 
-            int rows = ps.executeUpdate();
-            if (rows == 0) return 0;
-
-            try (ResultSet rs = ps.getGeneratedKeys()) {
-                if (rs.next()) return rs.getInt(1);
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return 0;
-    }
-
-    // Get bill by reservationId
-    public Bill getBill(int reservationId) {
-        String sql = "SELECT * FROM bills WHERE reservation_id=?";
         try (Connection con = DatabaseConnection.getInstance().getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
 
             ps.setInt(1, reservationId);
             ResultSet rs = ps.executeQuery();
+
             if (rs.next()) {
-                return new Bill(
-                        rs.getInt("reservation_id"),
-                        rs.getInt("total_nights"),
-                        rs.getDouble("total_amount")
-                );
+                exists = true;
             }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return exists;
+    }
+    
+    public boolean addBill(Bill bill) {
+    String sql = "INSERT INTO bills (reservation_id, nights, price_per_night, total_amount) VALUES (?, ?, ?, ?)";
+    try (Connection con = DatabaseConnection.getInstance().getConnection();
+         PreparedStatement ps = con.prepareStatement(sql)) {
+        ps.setInt(1, bill.getReservationId());
+        ps.setInt(2, bill.getNumberOfNights());
+        ps.setDouble(3, bill.getPricePerNight());
+        ps.setDouble(4, bill.getTotalAmount());
+        return ps.executeUpdate() > 0;
+        } 
+    catch (Exception e) {
+        e.printStackTrace();
+        return false;
+        }
+    }
+    
+    public void saveBill(Bill bill){
+    try{
+        Connection con = DatabaseConnection.getInstance().getConnection();
+        String sql = "INSERT INTO bill(reservation_id,total_nights,total_amount) VALUES (?,?,?)";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, bill.getReservationId());
+        ps.setInt(2, bill.getNumberOfNights());
+        ps.setDouble(3, bill.getTotalAmount());
+        ps.executeUpdate();
+        con.close();
+        }
+    catch(Exception e){
+        e.printStackTrace();
+        }
+    }
+    
+    public boolean billExists(int reservationId) {
+
+        boolean exists = false;
+
+        try {
+            Connection conn = DatabaseConnection.getInstance().getConnection();
+
+            String sql = "SELECT bill_id FROM bill WHERE reservation_id=?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, reservationId);
+
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                exists = true;
+            }
+
+            conn.close();
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
-    }
+
+        return exists;
+  }  
 }

@@ -28,12 +28,18 @@
 <!-- SIDEBAR -->
 <div class="sidebar">
     <h2 class="logo">Ocean View Resort</h2>
-    <p class="role">Role: ADMIN</p>
+    <p class="role">Role: <%= user.getRole() %></p>
 
-    <a href="home.jsp">Dashboard</a>
+    <a href="home.jsp" class="active">Dashboard</a>
     <a href="addReservation.jsp">Add Reservation</a>
     <a href="viewReservation.jsp">View Reservations</a>
-    <a href="ReportServlet" class="active">Reports</a>
+
+    <% if ("ADMIN".equals(user.getRole())) { %>
+        <a href="report.jsp">Reports</a>
+    <% } %>
+    <a href="CalculateBillServlet">Calculate & Print Bill</a>
+    <a href="help.jsp">Help</a>
+
     <a href="LogoutServlet" class="logout">Logout</a>
 </div>
 

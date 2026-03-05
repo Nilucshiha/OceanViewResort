@@ -15,6 +15,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.UUID;
 
+
 public class ReservationService {
 
     private GuestDAO guestDAO = new GuestDAO();
@@ -22,9 +23,6 @@ public class ReservationService {
     private ReservationDAO reservationDAO = new ReservationDAO();
     private BillDAO billDAO = new BillDAO();
 
-    // ============================
-    // CREATE RESERVATION
-    // ============================
     public boolean createReservation(
             String guestName,
             String address,
@@ -34,30 +32,24 @@ public class ReservationService {
             LocalDate checkOut
     ) {
         try {
-            // 1️⃣ Validate dates
+           
             if (checkOut.isBefore(checkIn) || checkOut.equals(checkIn)) {
+                System.out.println("Invalid check-in/check-out dates");
                 return false;
             }
 
-            // 2️⃣ Save guest
             Guest guest = new Guest(guestName, address, contactNumber);
-            int guestId = guestDAO.addGuest(guest);
+            int guestId = guestDAO.addGuest(guest); 
+            if (guestId <= 0) return false;
 
-            if (guestId <= 0) {
-                return false;
-            }
-
-            // 3️⃣ Get available room
             Room room = roomDAO.getAvailableRoom(roomType);
             if (room == null) {
+                System.out.println("No available room for type " + roomType);
                 return false;
             }
 
-            // 4️⃣ Generate reservation number
-            String reservationNumber =
-                    "RES-" + UUID.randomUUID().toString().substring(0, 8).toUpperCase();
+            String reservationNumber = "RES-" + UUID.randomUUID().toString().substring(0, 8).toUpperCase();
 
-            // 5️⃣ Save reservation
             Reservation reservation = new Reservation(
                     reservationNumber,
                     guestId,
@@ -66,22 +58,27 @@ public class ReservationService {
                     checkOut,
                     "CONFIRMED"
             );
+            
+            reservation.setPricePerNight(room.getPricePerNight());
 
             int reservationId = reservationDAO.addReservation(reservation);
-            if (reservationId <= 0) {
-                return false;
-            }
+            if (reservationId <= 0) return false;
 
-            // 6️⃣ Update room status
             roomDAO.updateRoomStatus(room.getRoomId(), "OCCUPIED");
 
-            // 7️⃣ Create bill
-            int nights = (int) ChronoUnit.DAYS.between(checkIn, checkOut);
-            double amount = nights * room.getPricePerNight();
+            long nights = reservation.getNumberOfNights(); 
+            double totalAmount = nights * room.getPricePerNight();
 
-            Bill bill = new Bill(reservationId, nights, amount);
-            billDAO.addBill(bill);
 
+            Bill bill = new Bill();
+
+        bill.setReservationId(reservation.getReservationId());
+        bill.setNumberOfNights((int) nights);
+        bill.setTotalAmount(totalAmount);
+
+        billDAO.saveBill(bill);
+
+            System.out.println("Reservation and bill created successfully.");
             return true;
 
         } catch (Exception e) {
@@ -90,30 +87,28 @@ public class ReservationService {
         }
     }
 
-    // ============================
-    // FILTER BY RESERVATION NUMBER
-    // ============================
     public Reservation getReservation(String reservationNumber) {
         return reservationDAO.getReservationByNumber(reservationNumber);
     }
 
-    // ============================
-    // GET ALL RESERVATIONS
-    // ============================
+    public Reservation getReservationById(int reservationId) {
+        return reservationDAO.getReservationById(reservationId);
+    }
+
     public List<Reservation> getAllReservations() {
         return reservationDAO.getAllReservations();
     }
-    
+
     public int getTotalReservations() {
-    return reservationDAO.getReservationCount();
-}
+        return reservationDAO.getReservationCount();
+    }
+
     public List<Reservation> getReservationsForBilling() {
-    // could reuse getAllReservations
-    return getAllReservations();
-}
+        return getAllReservations();
+    }
     
-    public Reservation getReservationById(int reservationId) {
-    return reservationDAO.getReservationById(reservationId);
-}
+    public boolean updateReservation(Reservation reservation) {
+        return reservationDAO.updateReservation(reservation);
+    }
     
-}
+ }

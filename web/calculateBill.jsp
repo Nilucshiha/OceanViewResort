@@ -1,8 +1,9 @@
 <%-- 
-    Document   : viewReservation
-    Created on : Feb 22, 2026, 11:32:27?AM
+    Document   : calculateBill
+    Created on : Mar 5, 2026, 3:33:02?PM
     Author     : Nilucshiha
 --%>
+
 <%@ page import="model.User" %>
 <%@ page session="true" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -47,19 +48,9 @@
 <div class="main-content">
     <div class="reservation-wrapper">
 
-        <h1>All Reservations</h1>
+        <h1>Calculate & Print Bill</h1>
 
-        <!-- FILTER -->
-        <div class="filter-card">
-            <form method="get" action="ViewReservationServlet" class="filter-form">
-                <input type="text" name="reservationNumber"
-                       placeholder="Enter Reservation Number">
-
-                <input type="submit" name="search" value="Search">
-                <a href="ViewReservationServlet">Show All</a>
-            </form>
-        </div>
-
+  
         <!-- ERROR -->
         <c:if test="${not empty error}">
             <p class="error">${error}</p>
@@ -93,19 +84,18 @@
                 <td>${r.status}</td>
 
                 <td class="actions">
-                    <!-- EDIT -->
-                    <a class="btn edit"
-                       href="EditReservationServlet?reservationNumber=${r.reservationNumber}">
-                        Edit
-                    </a>
-
-                    <!-- DELETE -->
-                    <a class="btn delete"
-                       href="DeleteReservationServlet?reservationNumber=${r.reservationNumber}"
-                       onclick="return confirm('Are you sure you want to delete this reservation?');">
-                        Delete
-                    </a>
-                       
+                    
+                       <a href="GenerateBillServlet?reservationNumber=${r.reservationNumber}" 
+   class="btn-bill">
+   Calculate Bill
+</a>
+   
+   <form action="SaveBillServlet" method="post" style="display:inline;">
+        <input type="hidden" name="reservationId" value="${r.reservationId}">
+        <button type="submit" class="btn-save">
+            Save Bill
+        </button>
+    </form>
                 </td>
             </tr>
         </c:forEach>

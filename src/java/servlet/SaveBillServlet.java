@@ -4,7 +4,10 @@
  */
 package servlet;
 
-import com.sun.jdi.connect.spi.Connection;
+import dao.BillDAO;
+import dao.GuestDAO;
+import dao.ReservationDAO;
+import dao.RoomDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -14,10 +17,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.time.temporal.ChronoUnit;
 import model.Bill;
+import model.Guest;
 import model.Reservation;
-import service.BillingService;
-import service.ReservationService;
-import util.DatabaseConnection;
+import model.Room;
 
 /**
  *
@@ -26,49 +28,72 @@ import util.DatabaseConnection;
 @WebServlet(name = "SaveBillServlet", urlPatterns = {"/SaveBillServlet"})
 public class SaveBillServlet extends HttpServlet {
 
-    private BillingService billService = new BillingService();
-    private ReservationService reservationService = new ReservationService();
+    private ReservationDAO reservationDAO = new ReservationDAO();
+    private RoomDAO roomDAO = new RoomDAO();
+    private GuestDAO guestDAO = new GuestDAO();
+    private BillDAO billDAO = new BillDAO(); // Make sure you have this DAO
 
- 
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        try {
-            int reservationId = Integer.parseInt(request.getParameter("reservationId"));
-            Reservation res = reservationService.getReservationById(reservationId);
-
-            if (res == null) {
-                request.setAttribute("error", "Reservation not found!");
-                request.getRequestDispatcher("generateBill.jsp").forward(request, response);
-                return;
-            }
-
-            // Calculate total nights
-            long totalNights = java.time.temporal.ChronoUnit.DAYS.between(
-                    res.getCheckIn(), res.getCheckOut()
-            );
-
-            // Example: Room rate based on room type
-            double ratePerNight = switch(res.getRoomType()) {
-                case "STANDARD" -> 1000;
-                case "DELUXE" -> 2500;
-                case "SUITE" -> 4000;
-                default -> 0;
-            };
-
-            double totalAmount = totalNights * ratePerNight;
-
-            Bill bill = new Bill(reservationId, (int) totalNights, totalAmount);
-
-            // Save the bill
-            billService.createBill(bill);
-
-            request.setAttribute("msg", "Bill generated successfully! Total: " + totalAmount);
-            request.getRequestDispatcher("generateBill.jsp").forward(request, response);
-
-        } catch (NumberFormatException e) {
-            request.setAttribute("error", "Invalid Reservation ID!");
-            request.getRequestDispatcher("generateBill.jsp").forward(request, response);
+        // 1️⃣ Get reservation number from form
+        String reservationNumber = request.getParameter("reservationNumber");
+        if (reservationNumber == null || reservationNumber.isEmpty()) {
+            response.getWriter().println("Invalid Reservation Number!");
+            return;
         }
+
+        // 2️⃣ Fetch reservation
+        Reservation reservation = reservationDAO.getReservationByNumber1(reservationNumber);
+        if (reservation == null) {
+            response.getWriter().println("Reservation not found!");
+            return;
+        }
+
+        // 3️⃣ Fetch room
+        Room room = roomDAO.getRoomById(reservation.getRoomId());
+        if (room == null) {
+            response.getWriter().println("Room not found!");
+            return;
+        }
+
+        // 4️⃣ Fetch guest
+        Guest guest = guestDAO.getGuestById(reservation.getGuestId());
+        if (guest != null) {
+            reservation.setGuestName(guest.getGuestName());
+            reservation.setAddress(guest.getAddress());
+            reservation.setContactNumber(guest.getContactNumber());
+        }
+
+        // 5️⃣ Calculate nights
+        long nights = ChronoUnit.DAYS.between(reservation.getCheckIn(), reservation.getCheckOut());
+        if (nights <= 0) nights = 1;
+
+        // 6️⃣ Calculate total amount
+        double totalAmount = nights * room.getPricePerNight();
+
+        // 7️⃣ Prepare Bill object
+        Bill bill = new Bill();
+        bill.setReservationId(reservation.getReservationId());
+        bill.setGuestName(reservation.getGuestName());
+        bill.setRoomType(room.getRoomType());
+        bill.setCheckIn(reservation.getCheckIn());
+        bill.setCheckOut(reservation.getCheckOut());
+        bill.setNumberOfNights((int) nights);
+        bill.setPricePerNight(room.getPricePerNight());
+        bill.setTotalAmount(totalAmount);
+
+        // 8️⃣ Save bill using DAO
+        if (!billDAO.billExists(reservation.getReservationId())) {
+            billDAO.saveBill(bill);
+        }
+
+        // 9️⃣ Forward to generateBill.jsp to display
+        request.setAttribute("reservation", reservation);
+        request.setAttribute("room", room);
+        request.setAttribute("nights", nights);
+        request.setAttribute("totalAmount", totalAmount);
+        request.getRequestDispatcher("generateBill.jsp").forward(request, response);
     }
 }

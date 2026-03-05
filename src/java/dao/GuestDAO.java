@@ -50,4 +50,30 @@ public class GuestDAO {
         }
         return null;
     }
+    
+    public Guest getGuestById(int guestId) {
+        Guest guest = null;
+        String sql = "SELECT * FROM guests WHERE guest_id = ?";
+
+        try (Connection conn = DatabaseConnection.getInstance().getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, guestId);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                guest = new Guest(
+                        rs.getString("guest_name"),   // fetch guest_name column
+                        rs.getString("address"),
+                        rs.getString("contact_number")
+                );
+                guest.setGuestId(rs.getInt("guest_id"));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return guest;
+    }
 }
