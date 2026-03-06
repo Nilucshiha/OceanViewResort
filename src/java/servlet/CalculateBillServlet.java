@@ -28,10 +28,8 @@ public class CalculateBillServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // Get all reservations from database
         List<Reservation> reservations = reservationDAO.getAllReservations();
 
-        // Send to JSP
         request.setAttribute("reservations", reservations);
 
         request.getRequestDispatcher("calculateBill.jsp").forward(request, response);

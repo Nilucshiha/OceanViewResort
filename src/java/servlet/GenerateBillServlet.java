@@ -42,14 +42,12 @@ public class GenerateBillServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // Get reservation number from URL
         String reservationNumber = request.getParameter("reservationNumber");
         if (reservationNumber == null || reservationNumber.isEmpty()) {
             response.getWriter().println("Invalid Reservation Number!");
             return;
         }
 
-        // Get reservation
         Reservation reservation = reservationDAO.getReservationByNumber1(reservationNumber);
         if (reservation == null) {
             request.setAttribute("errorMessage", "Reservation not found!");
@@ -57,7 +55,6 @@ public class GenerateBillServlet extends HttpServlet {
             return;
         }
 
-        // Get room
         Room room = roomDAO.getRoomById(reservation.getRoomId());
         if (room == null) {
             request.setAttribute("errorMessage", "Room not found!");
@@ -72,11 +69,10 @@ Guest guest = guestDAO.getGuestById(reservation.getGuestId());
             reservation.setContactNumber(guest.getContactNumber());
         }
         
-        // Calculate nights
         long nights = ChronoUnit.DAYS.between(reservation.getCheckIn(), reservation.getCheckOut());
         if (nights <= 0) nights = 1;
 
-        // Calculate total amount
+       
         double totalAmount = nights * room.getPricePerNight();
 
         Bill bill = new Bill();
@@ -87,13 +83,12 @@ Guest guest = guestDAO.getGuestById(reservation.getGuestId());
            if (!billDAO.billExists(reservation.getReservationId())) {
                 billDAO.saveBill(bill);
             }
-        // Set attributes for JSP
+           
         request.setAttribute("reservation", reservation);
         request.setAttribute("room", room);
         request.setAttribute("nights", nights);
         request.setAttribute("totalAmount", totalAmount);
 
-        // Forward to JSP
         request.getRequestDispatcher("generateBill.jsp").forward(request, response);
     }
 }

@@ -14,7 +14,6 @@ import java.sql.*;
 
 public class RoomDAO {
 
-    // 1️⃣ Get available room
     public Room getAvailableRoom(String roomType) {
         try {
             Connection conn = DatabaseConnection.getInstance().getConnection();
@@ -40,7 +39,6 @@ public class RoomDAO {
         return null;
     }
 
-    // 2️⃣ Update room status
     public boolean updateRoomStatus(int roomId, String status) {
         try {
             Connection conn = DatabaseConnection.getInstance().getConnection();
@@ -48,13 +46,10 @@ public class RoomDAO {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, status);
             ps.setInt(2, roomId);
-
             return ps.executeUpdate() > 0;
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return false;
     }
 
@@ -64,9 +59,7 @@ public class RoomDAO {
         String sql = "SELECT * FROM rooms WHERE room_id=?";
         PreparedStatement ps = conn.prepareStatement(sql);
         ps.setInt(1, roomId);
-
         ResultSet rs = ps.executeQuery();
-
         if (rs.next()) {
             return new Room(
                 rs.getInt("room_id"),
@@ -76,11 +69,9 @@ public class RoomDAO {
                 rs.getString("status")
             );
         }
-
     } catch (Exception e) {
         e.printStackTrace();
     }
-
     return null;
 }
 }

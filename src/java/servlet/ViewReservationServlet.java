@@ -53,22 +53,19 @@ if (searchAction != null) {
     }
 
 } else {
-    // First time page load → show all
+  
     reservations = reservationService.getAllReservations();
 }
 
-        // Pass attributes to JSP
         request.setAttribute("reservations", reservations);
-        request.setAttribute("totalReservations", reservations.size()); // ✅ Total reservations
+        request.setAttribute("totalReservations", reservations.size()); 
 
-        // Forward to JSP
         request.getRequestDispatcher("viewReservation.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // POST request behaves same as GET
         doGet(request, response);
     }
 }

@@ -21,28 +21,36 @@
 <head>
     <title>Edit Reservation</title>
 
-    <!-- COMMON -->
     <link rel="stylesheet" href="css/dashboard.css">
 
-    <!-- PAGE SPECIFIC -->
     <link rel="stylesheet" href="css/edit-reservation.css">
 </head>
 
 <body class="dashboard">
 
-<!-- SIDEBAR -->
 <div class="sidebar">
     <h2 class="logo">Ocean View Resort</h2>
     <p class="role">Role: <%= user.getRole() %></p>
 
-    <a href="home.jsp">Dashboard</a>
-    <a href="viewReservation.jsp" class="active">Reservations</a>
+    <a href="home.jsp" class="active">Dashboard</a>
+    <a href="addReservation.jsp">Add Reservation</a>
+    <a href="viewReservation.jsp">View Reservations</a>
+
+    <% if ("ADMIN".equals(user.getRole())) { %>
+        <a href="report.jsp">Reports</a>
+    <% } %>
+    <a href="CalculateBillServlet">Calculate & Print Bill</a>
+    <a href="help.jsp">Help</a>
+
     <a href="LogoutServlet" class="logout">Logout</a>
 </div>
 
 <!-- MAIN -->
 <div class="main-content">
-    <h1>Edit Reservation</h1>
+  
+    <h1 style="font-size: 28px;
+    margin-bottom: 20px;
+    color: #023e8a;">Edit Reservation</h1>
 
     <c:if test="${not empty error}">
         <p class="error">${error}</p>

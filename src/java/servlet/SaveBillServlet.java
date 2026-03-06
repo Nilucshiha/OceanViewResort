@@ -31,34 +31,30 @@ public class SaveBillServlet extends HttpServlet {
     private ReservationDAO reservationDAO = new ReservationDAO();
     private RoomDAO roomDAO = new RoomDAO();
     private GuestDAO guestDAO = new GuestDAO();
-    private BillDAO billDAO = new BillDAO(); // Make sure you have this DAO
+    private BillDAO billDAO = new BillDAO(); 
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // 1️⃣ Get reservation number from form
         String reservationNumber = request.getParameter("reservationNumber");
         if (reservationNumber == null || reservationNumber.isEmpty()) {
             response.getWriter().println("Invalid Reservation Number!");
             return;
         }
 
-        // 2️⃣ Fetch reservation
         Reservation reservation = reservationDAO.getReservationByNumber1(reservationNumber);
         if (reservation == null) {
             response.getWriter().println("Reservation not found!");
             return;
         }
 
-        // 3️⃣ Fetch room
         Room room = roomDAO.getRoomById(reservation.getRoomId());
         if (room == null) {
             response.getWriter().println("Room not found!");
             return;
         }
 
-        // 4️⃣ Fetch guest
         Guest guest = guestDAO.getGuestById(reservation.getGuestId());
         if (guest != null) {
             reservation.setGuestName(guest.getGuestName());
@@ -66,14 +62,11 @@ public class SaveBillServlet extends HttpServlet {
             reservation.setContactNumber(guest.getContactNumber());
         }
 
-        // 5️⃣ Calculate nights
         long nights = ChronoUnit.DAYS.between(reservation.getCheckIn(), reservation.getCheckOut());
         if (nights <= 0) nights = 1;
 
-        // 6️⃣ Calculate total amount
         double totalAmount = nights * room.getPricePerNight();
 
-        // 7️⃣ Prepare Bill object
         Bill bill = new Bill();
         bill.setReservationId(reservation.getReservationId());
         bill.setGuestName(reservation.getGuestName());
@@ -84,12 +77,10 @@ public class SaveBillServlet extends HttpServlet {
         bill.setPricePerNight(room.getPricePerNight());
         bill.setTotalAmount(totalAmount);
 
-        // 8️⃣ Save bill using DAO
         if (!billDAO.billExists(reservation.getReservationId())) {
             billDAO.saveBill(bill);
         }
 
-        // 9️⃣ Forward to generateBill.jsp to display
         request.setAttribute("reservation", reservation);
         request.setAttribute("room", room);
         request.setAttribute("nights", nights);

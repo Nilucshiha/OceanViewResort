@@ -25,9 +25,6 @@ public class ReservationServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // ======================
-        // SESSION CHECK
-        // ======================
         HttpSession session = request.getSession(false);
         User user = (session != null) ? (User) session.getAttribute("user") : null;
 
@@ -37,9 +34,7 @@ public class ReservationServlet extends HttpServlet {
         }
 
         try {
-            // ======================
-            // READ PARAMETERS
-            // ======================
+            
             String guestName = request.getParameter("guestName");
             String address = request.getParameter("address");
             String contactNumber = request.getParameter("contactNumber");
@@ -48,28 +43,21 @@ public class ReservationServlet extends HttpServlet {
             LocalDate checkIn = LocalDate.parse(request.getParameter("checkIn"));
             LocalDate checkOut = LocalDate.parse(request.getParameter("checkOut"));
 
-            // ======================
-            // BASIC VALIDATION
-            // ======================
             if (checkOut.isBefore(checkIn)) {
                 request.setAttribute("error", "Check-out date must be after check-in date.");
                 request.getRequestDispatcher("addReservation.jsp").forward(request, response);
                 return;
             }
 
-            // ======================
-            // BUSINESS LOGIC
-            // ======================
             ReservationService resService = new ReservationService();
             boolean success = resService.createReservation(
                     guestName, address, contactNumber, roomType, checkIn, checkOut
             );
 
             if (success) {
-                // ✅ Use SAME session (no redeclaration)
                 session.setAttribute("success", "Reservation added successfully!");
                 response.sendRedirect("viewReservation.jsp");
-                return; // 🔥 STOP execution after redirect
+                return; 
             } else {
                 request.setAttribute("error", "Unable to create reservation.");
                 request.getRequestDispatcher("addReservation.jsp").forward(request, response);

@@ -47,9 +47,8 @@
 <div class="main-content">
     <div class="reservation-wrapper">
 
-        <h1>All Reservations</h1>
+        <h1>View Reservations</h1>
 
-        <!-- FILTER -->
         <div class="filter-card">
             <form method="get" action="ViewReservationServlet" class="filter-form">
                 <input type="text" name="reservationNumber"
@@ -60,12 +59,11 @@
             </form>
         </div>
 
-        <!-- ERROR -->
         <c:if test="${not empty error}">
             <p class="error">${error}</p>
         </c:if>
 
-        <!-- TABLE -->
+            
         <c:if test="${not empty reservations}">
             <div class="table-card">
     <table>
@@ -99,7 +97,6 @@
                         Edit
                     </a>
 
-                    <!-- DELETE -->
                     <a class="btn delete"
                        href="DeleteReservationServlet?reservationNumber=${r.reservationNumber}"
                        onclick="return confirm('Are you sure you want to delete this reservation?');">

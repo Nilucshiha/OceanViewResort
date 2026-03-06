@@ -63,7 +63,7 @@
             </form>
         </div>
 
-        <!-- Report Result -->
+       
         <c:if test="${not empty report}">
             <div class="report-card report-output">
                 <h3>Report Result</h3>

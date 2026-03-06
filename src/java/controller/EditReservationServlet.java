@@ -38,14 +38,12 @@ public class EditReservationServlet extends HttpServlet {
             return;
         }
 
-        // Get reservationNumber
         String reservationNumber = request.getParameter("reservationNumber");
         if (reservationNumber == null || reservationNumber.isEmpty()) {
             response.sendRedirect("viewReservation.jsp");
             return;
         }
 
-        // Fetch reservation
         Reservation reservation = reservationDAO.getReservationByNumber(reservationNumber);
         if (reservation == null) {
             request.setAttribute("error", "Reservation not found");
