@@ -32,7 +32,7 @@
             <div class="form-group">
                 <label>Role</label>
                 <select name="role" required>
-                    <option value="USER">Receptionist</option>
+                    <option value="RECEPTIONIST">Receptionist</option>
                     <option value="ADMIN">Admin</option>
                 </select>
             </div>
